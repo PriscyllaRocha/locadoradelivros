@@ -19,9 +19,9 @@ br.com.nossalocadora.locadoradelivros
 ├── model/ # Entidades (Livro, Autor, Cliente, etc.)
 └── LocadoradelivrosApplication.java
 
-## Desenvolvedora:
+### Desenvolvedora:
 
 Priscylla Rocha
 
-## Licença: 
+### Licença: 
 Este projeto é para fins acadêmicos e não possui licença específica. Sinta-se livre para usar como referência em estudos e projetos similares.
