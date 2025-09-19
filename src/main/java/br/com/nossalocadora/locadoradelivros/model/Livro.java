@@ -2,6 +2,7 @@ package br.com.nossalocadora.locadoradelivros.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.Set;
 
 @Data
 @Entity
@@ -11,6 +12,16 @@ public class Livro {
     private Long id;
 
     private String titulo;
-    private String classificacao; // Diamante, Ouro, Prata e Bronze
+
+    private String classificacao;
+
     private Integer quantidadeExemplares;
+
+    @ManyToMany (cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "livro_autor",
+        joinColumns = @JoinColumn(name = "livro_id"),
+        inverseJoinColumns = @JoinColumn(name = "autor_id")
+    )
+    private Set<Autor> autores; // Adicionado aqui
 }
