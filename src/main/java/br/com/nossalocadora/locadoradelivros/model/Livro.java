@@ -1,6 +1,7 @@
 package br.com.nossalocadora.locadoradelivros.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import java.util.Set;
 
@@ -13,7 +14,9 @@ public class Livro {
 
     private String titulo;
 
-    private String classificacao;
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "{livro.classificacao.obrigatoria}")
+    private Classificacao classificacao;
 
     private Integer quantidadeExemplares;
 
