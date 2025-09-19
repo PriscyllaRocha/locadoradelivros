@@ -26,6 +26,12 @@ public class LivroController {
         return livroService.salvar(livro);
     }
 
+    @PostMapping("/{idLivro}/autores/{idAutor}")
+    public Livro adicionarAutorAoLivro(@PathVariable Long idLivro, @PathVariable Long idAutor) {
+    return livroService.adicionarAutorAoLivro(idLivro, idAutor);
+    }
+
+
     @PutMapping("/{id}")
     public Livro atualizar(@PathVariable Long id, @RequestBody @Valid Livro livro) {
         return livroService.atualizar(id, livro);

@@ -1,30 +1,82 @@
 package br.com.nossalocadora.locadoradelivros.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @Entity
 public class Livro {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String titulo;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "{livro.classificacao.obrigatoria}")
+    @Column(nullable = false)
     private Classificacao classificacao;
 
-    private Integer quantidadeExemplares;
+    @Column(nullable = false)
+    private int quantidadeExemplares;
 
-    @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "livro_autor",
-        joinColumns = @JoinColumn(name = "livro_id"),
-        inverseJoinColumns = @JoinColumn(name = "autor_id")
-    )
-    private Set<Autor> autores; // Adicionado aqui
+    @ManyToMany(mappedBy = "livros")
+    @com.fasterxml.jackson.annotation.JsonBackReference
+    private Set<Autor> autores = new HashSet<>();
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Classificacao getClassificacao() {
+        return classificacao;
+    }
+
+    public void setClassificacao(Classificacao classificacao) {
+        this.classificacao = classificacao;
+    }
+
+    public int getQuantidadeExemplares() {
+        return quantidadeExemplares;
+    }
+
+    public void setQuantidadeExemplares(int quantidadeExemplares) {
+        this.quantidadeExemplares = quantidadeExemplares;
+    }
+
+    public Set<Autor> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(Set<Autor> autores) {
+        this.autores = autores;
+    }
+
+    // === equals e hashCode usando apenas o ID ===
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Livro)) return false;
+        Livro livro = (Livro) o;
+        return id != null && id.equals(livro.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
